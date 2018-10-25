@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 460 110" style="enable-background:new 0 0 460 110;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#202020;}
+	.st1{fill:url(#SVGID_1_);}
+</style>
+<title>cla-logo-web-small-pos</title>
+<desc>Created with Sketch.</desc>
+<g id="cla-logo-web-small-pos">
+	<polygon id="Fill-1" class="st0" points="211,109 222,109 222,58 211,58 	"/>
+	<path id="Fill-2" class="st0" d="M185.1,75.6c0,4.3-3.1,7.2-8.6,7.2h-11.3V68.1h11.1c5.5,0,8.8,2.5,8.8,7.3V75.6z M185.6,90.8
+		c6.5-2.4,10.9-7.6,10.9-15.8v-0.1c0-10.5-7.2-16.8-19.2-16.8H154v51h11.2V92.7h8.8l10.9,16.3H198L185.6,90.8z"/>
+	<path id="Fill-3" class="st0" d="M112.1,87.8l6.8-16.4l6.8,16.4H112.1z M124.2,58h-10.9L92,109h11.4l4.7-11.4h21.5l4.7,11.4H146
+		L124.2,58z"/>
+	<polyline id="Fill-4" class="st0" points="55,109 85,109 85,98.8 66.1,98.8 66.1,58 55,58 55,109 	"/>
+	<path id="Fill-5" class="st0" d="M11.7,83.5v-0.1c0-8.8,6.2-16,14.8-16c5.1,0,9.1,2.2,13,5.8l7.1-8.3C41.9,60.2,36.2,57,26.6,57
+		C10.9,57,0,68.9,0,83.5v0.1C0,98.4,11.1,110,26.1,110c9.8,0,15.6-3.5,20.9-9.1l-7.1-7.2c-4,3.7-7.6,6-13.4,6
+		C17.8,99.6,11.7,92.3,11.7,83.5"/>
+	<path id="Fill-6" class="st0" d="M251.1,87.8l6.8-16.4l6.8,16.4H251.1z M263.2,58h-10.3L231,109h11.4l4.6-11.4h21.6l4.7,11.4H285
+		L263.2,58z"/>
+	<polyline id="Fill-7" class="st0" points="328.5,109 338,109 338,58 327,58 327,89.4 303.3,58 293,58 293,109 304,109 304,76.6 
+		328.5,109 	"/>
+	<polyline id="Fill-8" class="st0" points="391,68.3 391,58 349,58 349,68.3 364.4,68.3 364.4,109 375.6,109 375.6,68.3 391,68.3 	
+		"/>
+	<g id="Fill-9">
+		
+			<image style="overflow:visible;opacity:0.8;" width="61" height="61" xlink:href="5EEB7970.png"  transform="matrix(1 0 0 1 399 0)">
+		</image>
+		<g>
+			<radialGradient id="SVGID_1_" cx="410.5" cy="8.5" r="53.3339" gradientUnits="userSpaceOnUse">
+				<stop  offset="0" style="stop-color:#F0F0F0"/>
+				<stop  offset="0.1488" style="stop-color:#EAEAEA"/>
+				<stop  offset="0.3381" style="stop-color:#DBDBDB"/>
+				<stop  offset="0.5491" style="stop-color:#C1C1C1"/>
+				<stop  offset="0.7746" style="stop-color:#9D9D9D"/>
+				<stop  offset="1" style="stop-color:#717171"/>
+			</radialGradient>
+			<path class="st1" d="M457,33.7h-27.5c-1.8,0-3.2-1.4-3.2-3.2s1.4-3.2,3.2-3.2H457V3h-45.9c-5,0-9.1,4.1-9.1,9.1v36.8
+				c0,5,4.1,9.1,9.1,9.1H457V33.7"/>
+		</g>
+	</g>
+</g>
+</svg>
