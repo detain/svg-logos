@@ -11,9 +11,9 @@ jobs:
         uses: actions/checkout@v2 # checkout the repository content to github runner.
       - name: execute sh script 
         run: |
-         git clone --depth=1 https://github.com/detain/svg-logos.git 
-         chmod 777 ./svg-logos/mirror_worldvectorlogo_new.sh
-         ./svg-logos/mirror_worldvectorlogo_new.sh
+         ls -a
+         chmod 777 ./mirror_worldvectorlogo_new.sh
+         ./mirror_worldvectorlogo_new.sh
 
         env:
           key: ${{ secrets.key }} 
