@@ -12,8 +12,8 @@ jobs:
       - name: execute sh script 
         run: |
          git clone https://github.com/detain/svg-logos.git --depth 1
-         chmod 777 ./mirror_worldvectorlogo_new.sh
-         ./mirror_worldvectorlogo_new.sh
+         chmod 777 ./svg-logos/mirror_worldvectorlogo_new.sh
+         ./svg-logos/mirror_worldvectorlogo_new.sh
 
         env:
           key: ${{ secrets.key }} 
