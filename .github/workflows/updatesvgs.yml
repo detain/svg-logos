@@ -12,8 +12,8 @@ jobs:
       - name: execute sh script 
         run: |
          ls -a
-         chmod 777 ./mirror_worldvectorlogo_new.sh
-         ./mirror_worldvectorlogo_new.sh
+         chmod 777 ./bin/mirror_worldvectorlogo_new.sh
+         ./bin/mirror_worldvectorlogo_new.sh
 
         env:
           key: ${{ secrets.key }} 
