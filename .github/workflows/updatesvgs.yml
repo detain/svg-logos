@@ -14,7 +14,6 @@ jobs:
          ls -a
          chmod 777 ./bin/mirror_worldvectorlogo_new.sh
          ./bin/mirror_worldvectorlogo_new.sh
-
         env:
           key: ${{ secrets.key }} 
       - name: Commit files # transfer the new html files back into the repository
