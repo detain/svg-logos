@@ -18,7 +18,7 @@ for l in a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9
       logo="$(echo "$data"|cut -d" " -f2)"
       name="$(echo "$data"|cut -d" " -f3-)"
       tags="$(curl -s https://worldvectorlogo.com/logo/${id}|sed -e s#"<a"#"\n<a"#g|grep meta__tag-link|cut -d\> -f2|cut -d\< -f1|tr "\n" ,)"
-      echo "{\"id\": \"${id}\", \"name\": \"${name}\", \"logo\": \"${logo}\", \"tags\": [${tags}]}," >> svgs.tmp
+      echo "{\"id\": \"${id}\", \"name\": \"${name}\", \"logo\": \"${logo}\", \"tags\": [${tags}]},"
     done
     echo "$(cat svgs.tmp|wc -l) SVGs added for '$l' page '$p'";
     cat svgs.tmp >> svgs;
