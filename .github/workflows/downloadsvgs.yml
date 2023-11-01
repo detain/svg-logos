@@ -15,7 +15,7 @@ jobs:
          ./bin/mirror_worldvectorlogo_download.sh
         env:
           key: ${{ secrets.key }} 
-      - name: Commit files # transfer the new html files back into the repository
+      - name: Commit files 
         run: |
          git config --local user.name "SVGBOT"
          git add .
