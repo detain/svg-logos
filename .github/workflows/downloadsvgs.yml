@@ -17,7 +17,8 @@ jobs:
           key: ${{ secrets.key }} 
       - name: Commit files 
         run: |
-         git config --local user.name "SVGBOT"
+         git config --global user.name "SVGBOT"
+         git config --global user.email "runner@SVGBOT.com"
          git add .
          git commit -m "Downloading SVGs"
       - name: Push changes # push the output folder to your repo
