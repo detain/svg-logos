@@ -2,7 +2,7 @@ name: update
 on: 
   push:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 2 * * 0'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,15 +11,15 @@ jobs:
         uses: actions/checkout@v2 # checkout the repository content to github runner.
       - name: execute sh script 
         run: |
-         chmod 777 ./bin/mirror_worldvectorlogo.sh 
-         ./bin/mirror_worldvectorlogo.sh
+         chmod 777 ./bin/mirror_worldvectorlogo_download.sh
+         ./bin/mirror_worldvectorlogo_download.sh
         env:
           key: ${{ secrets.key }} 
       - name: Commit files # transfer the new html files back into the repository
         run: |
          git config --local user.name "SVGBOT"
          git add .
-         git commit -m "Updating the SVGs list"
+         git commit -m "Downloading SVGs"
       - name: Push changes # push the output folder to your repo
         uses: ad-m/github-push-action@master
         with:
