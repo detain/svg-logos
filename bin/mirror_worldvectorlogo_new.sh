@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 rm -f svgs;
 IFS="
 "
@@ -11,7 +12,7 @@ for l in a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9
     else
       u="https://worldvectorlogo.com/alphabetical/$l/$p"
     fi
-    curl -s "$u"|sed s#'\(<a\)'#"\n\1"#g| > .svgs.letter-${l}-page-${p};
+    curl -s "$u"|sed s#'\(<a\)'#"\n\1"#g > .svgs.letter-${l}-page-${p};
     nextpage="$(cat .svgs.letter-${l}-page-${p} | sed -e s#"<a "#"\n<a "#g -e s#"<img"#"\n<img"#g | grep "^<a class=\"button.*>Next" | sed s#"<a class=\"button.*/\([^/\"]*\)\">Next.*$"#"\1"#g)"
     for data in $(cat .svgs.letter-${l}-page-${p} | grep logo__img|sed s#"^<a class=\"logo\" href=\"https://worldvectorlogo.com/logo/\([^\"]*\)\".*<img.*src=\"\([^\"]*\)\".*alt=\"\([^\"]*\) logo vector\".*$"#"\1 \2 \3"#g); do
       id="$(echo "$data"|cut -d" " -f1)"
