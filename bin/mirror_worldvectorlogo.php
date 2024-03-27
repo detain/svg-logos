@@ -2,7 +2,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Function to make a curl request
 function curlRequest($url) {
     echo "Loading URL {$url}";
     $curl = curl_init();
@@ -14,20 +13,31 @@ function curlRequest($url) {
     return $response;
 }
 
-$letters = array_merge(range('a', 'z'), range(0, 9));
-$file = fopen("svgs", "w");
+$svgs = [];
+$pagesProcessed = 0;
+if ($_SERVER['argc'] > 1) {
+	$limitWrite = true;
+	$letters = str_split(str_replace(' ', '', strtolower($_SERVER['argv'][1])));
+} else {
+	$limitWrite = false;
+	$letters = array_merge(range('a', 'z'), range(0, 9));
+}
 foreach ($letters as $l) {
+    @mkdir('svg/'.$l, true);
     $p = 1;
     $nextpage = 2;
     while ($nextpage != "") {
-        if ($p == 1) {
-            $u = "https://worldvectorlogo.com/alphabetical/$l";
-        } else {
+	$file = ".svgs.letter-$l-page-$p";
+	if (!file_exists($file)) {
+	  if ($p == 1) {
+       	    $u = "https://worldvectorlogo.com/alphabetical/$l";
+       	  } else {
             $u = "https://worldvectorlogo.com/alphabetical/$l/$p";
+          }
+          $html = curlRequest($u);
+          $html = str_replace('<a', "\n<a", $html);
+          file_put_contents(".svgs.letter-$l-page-$p", $html);
         }
-        $html = curlRequest($u);
-        $html = str_replace('<a', "\n<a", $html);
-        file_put_contents(".svgs.letter-$l-page-$p", $html);
         $nextpage = "";
         $lines = file(".svgs.letter-$l-page-$p");
         foreach ($lines as $line) {
@@ -39,32 +49,39 @@ foreach ($letters as $l) {
         $lines = file(".svgs.letter-$l-page-$p");
         foreach ($lines as $line) {
             if (strpos($line, 'logo__img') !== false) {
-		//echo "Processling Line '{$line}'\n";
                 preg_match('/<a class="logo" href="https:\/\/worldvectorlogo.com\/logo\/([^"]*)".*<img.*src="([^"]*)".*alt="([^"]*) logo vector".*$/', $line, $matches);
-		//var_dump($matches);
                 $id = $matches[1];
                 $logo = $matches[2];
                 $name = $matches[3];
-                $tagsHtml = curlRequest("https://worldvectorlogo.com/logo/$id");
+		$file = ".svgs.logo-$id";
+		if (!file_exists($file)) {
+                  $tagsHtml = curlRequest("https://worldvectorlogo.com/logo/$id");
+		  file_put_contents($file, $tagsHtml);
+                } else {
+                  $tagsHtml = file_get_contents($file);
+                }
                 $tags = [];
                 preg_match_all('/<a href="\/tags\/[^"]*">([^<]*)<\/a>/', $tagsHtml, $tagMatches);
                 foreach ($tagMatches[1] as $tag) {
                     $tags[] = $tag;
                 }
-                $tagsStr = implode(",", $tags);
-		$lineStr = "{\"id\": \"$id\", \"name\": \"$name\", \"logo\": \"$logo\", \"tags\": [$tagsStr]},\n";
-		//echo "Writing: {$lineStr}";
-                fwrite($file, $lineStr);
+		$file = basename($logo);
+		if (!file_exists('svg/'.$l.'/'.$file)) {
+	                $svg = curlRequest($logo);
+			file_put_contents('svg/'.$l.'/'.$file, $svg);
+                }
+		$svgs[$id] = ['id' => $id, 'name' => $name, 'logo' => $logo, 'tags' => $tags];
             }
         }
-        echo count(file("svgs")) . " SVGs added for '$l' page '$p'\n";
-//        shell_exec("cat svgs.tmp >> svgs");
+        $pagesProcessed++;
+	if ($pagesProcessed % 5 == 0) {
+		file_put_contents('svgs.json', json_encode($svgs, JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES));
+	}
         if ($nextpage != "") {
             $p++;
         }
     }
 }
 
-echo count(file("svgs")) . " Total SVGs\n";
-//unlink("svgs.tmp");
-fclose($file);
+echo count($svgs) . " Total SVGs\n";
+file_put_contents('svgs.json', json_encode($svgs, JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES));
