@@ -23,7 +23,7 @@ if ($_SERVER['argc'] > 1) {
 	$letters = array_merge(range('a', 'z'), range(0, 9));
 }
 foreach ($letters as $l) {
-    @mkdir('svg/'.$l, true);
+    @mkdir('../svg/'.$l, true);
     $p = 1;
     $nextpage = 2;
     while ($nextpage != "") {
@@ -66,7 +66,7 @@ foreach ($letters as $l) {
                     $tags[] = $tag;
                 }
 		$file = basename($logo);
-		if (!file_exists('svg/'.$l.'/'.$file)) {
+		if (!file_exists('../svg/'.$l.'/'.$file)) {
 	                $svg = curlRequest($logo);
 			file_put_contents('svg/'.$l.'/'.$file, $svg);
                 }
