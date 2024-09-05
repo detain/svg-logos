@@ -70,6 +70,3 @@ To contribute, simply fork this repository, make your changes, and open a pull r
 
 This project is licensed under the [MIT License](LICENSE).
 
----
-
-This README outlines the project structure, how to run the script, and what the JSON metadata looks like. You can customize this further as needed!
