@@ -1,7 +1,3 @@
-Here's a sample `README.md` file that would be appropriate for your `detain/svg-logos` project:
-
----
-
 # SVG Logos Collection
 
 This project is a collection of SVG logos stored in the `svg/` directory, providing easy access to high-quality logos. The project includes a script to download and update logos from [WorldVectorLogo](https://worldvectorlogo.com).
