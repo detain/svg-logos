@@ -55,7 +55,7 @@ foreach ($letters as $l) {
                 $id = $matches[1];
                 $logo = $matches[2];
                 $name = $matches[3];
-                $file = __DIR__."/../cache/html-logo/.svgs.html-logo-{$id}";
+                $file = __DIR__."/../cache/html-logo/.svgs.html-logo-".urldecode($id);
                 if (!file_exists($file)) {
                     $tagsHtml = curlRequest("https://worldvectorlogo.com/logo/{$id}");
                     file_put_contents($file, $tagsHtml);
@@ -67,7 +67,7 @@ foreach ($letters as $l) {
                 foreach ($tagMatches[1] as $tag) {
                     $tags[] = $tag;
                 }
-                $file = basename($logo);
+                $file = urldecode(basename($logo));
                 if (!file_exists(__DIR__.'/../svg/'.$l.'/'.$file)) {
                     $svg = curlRequest($logo);
                     file_put_contents(__DIR__.'/../svg/'.$l.'/'.$file, $svg);
@@ -83,7 +83,6 @@ foreach ($letters as $l) {
             $p++;
         }
     }
-    `gpp 'updated logos beging with $l'`;
 }
 
 echo count($svgs) . " Total SVGs\n";
