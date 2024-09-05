@@ -2,12 +2,20 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-function curlRequest($url) {
+function curlRequest($url, &$httpCode) {
     echo "Loading URL {$url}";
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($curl);
+    if (curl_errno($curl)) {
+        echo 'cURL error: ' . curl_error($curl);
+        return false;
+    } else {
+        // Get the HTTP status code
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        echo 'HTTP Status Code: ' . $httpCode;
+    }
     echo " got ".strlen($response)." bytes\n";
     curl_close($curl);
     return $response;
@@ -36,7 +44,14 @@ foreach ($letters as $l) {
             } else {
                 $u = "https://worldvectorlogo.com/alphabetical/$l/$p";
             }
-            $html = curlRequest($u);
+            $html = curlRequest($u, $code);
+            if ($html === false) {
+                continue;
+            }
+            if ($code != 200) {
+                echo "got {$code} response code\n";
+                continue;
+            }
             $html = str_replace('<a', "\n<a", $html);
             file_put_contents($file, $html);
         }
@@ -57,11 +72,19 @@ foreach ($letters as $l) {
                 $name = $matches[3];
                 $file = __DIR__."/../cache/html-logo/.svgs.html-logo-".urldecode($id);
                 if (!file_exists($file)) {
-                    $tagsHtml = curlRequest("https://worldvectorlogo.com/logo/{$id}");
+                    $u = "https://worldvectorlogo.com/logo/{$id}";
+                    $tagsHtml = curlRequest($u, $code);
+                    if ($tagsHtml === false) {
+                        continue;
+                    }
+                    if ($code != 200) {
+                        echo "got {$code} response code getting {$u}\n";
+                        continue;
+                    }
                     file_put_contents($file, $tagsHtml);
                 } else {
                     $tagsHtml = file_get_contents($file);
-                }
+                }                                  
                 $tags = [];
                 preg_match_all('/<a[^>]*href="[^"]*\/tag\/[^"]*">([^<]*)<\/a>/', $tagsHtml, $tagMatches);
                 foreach ($tagMatches[1] as $tag) {
@@ -69,7 +92,14 @@ foreach ($letters as $l) {
                 }
                 $file = urldecode(basename($logo));
                 if (!file_exists(__DIR__.'/../svg/'.$l.'/'.$file)) {
-                    $svg = curlRequest($logo);
+                    $svg = curlRequest($logo, $code);
+                    if ($svg === false) {
+                        continue;
+                    }
+                    if ($code != 200) {
+                        echo "got {$code} response code getting {$logo}\n";
+                        continue;
+                    }
                     file_put_contents(__DIR__.'/../svg/'.$l.'/'.$file, $svg);
                 }
                 $svgs[$id] = ['id' => $id, 'name' => $name, 'logo' => $logo, 'tags' => $tags];
