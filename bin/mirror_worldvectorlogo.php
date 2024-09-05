@@ -63,7 +63,7 @@ foreach ($letters as $l) {
                     $tagsHtml = file_get_contents($file);
                 }
                 $tags = [];
-                preg_match_all('/<a href="\/tag\/[^"]*">([^<]*)<\/a>/', $tagsHtml, $tagMatches);
+                preg_match_all('/<a[^>]*href="[^"]*\/tag\/[^"]*">([^<]*)<\/a>/', $tagsHtml, $tagMatches);
                 foreach ($tagMatches[1] as $tag) {
                     $tags[] = $tag;
                 }
@@ -77,7 +77,7 @@ foreach ($letters as $l) {
         }
         $pagesProcessed++;
         if ($pagesProcessed % 5 == 0) {
-            file_put_contents(__DIR__.'/../svgs.json', json_encode($svgs, JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES));
+            //file_put_contents(__DIR__.'/../svgs.json', json_encode($svgs, JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE |  JSON_UNESCAPED_SLASHES));
         }
         if ($nextpage != "") {
             $p++;
